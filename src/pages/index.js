@@ -18,10 +18,10 @@ export default function LoginPage() {
     });
 
     const data = await response.json();
-
+    console.log(data)
     if (response.status === 200) {
       // Save the token in localStorage
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.user.email);
       router.push("/dashboard"); // Redirect to dashboard after login
     } else {
       setError(data.message);

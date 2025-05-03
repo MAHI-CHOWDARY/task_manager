@@ -19,8 +19,9 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError(""); // Clear old errors
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/registerPage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -29,7 +30,7 @@ export default function RegisterPage() {
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.message || "Registration failed");
-      router.push("/login");
+      router.push("/");
     } catch (err) {
       setError(err.message);
     }
@@ -37,88 +38,86 @@ export default function RegisterPage() {
 
   return (
     <Layout title={"Register Page"}>
-
-    
-    <div className="container mt-5">
-      <div className="row ">
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6">
-          <div className="position-relative" style={{height:"85vh"}}>
-                    <Image
-                      src="/register.jpg" // Path to your image in the public folder
-                      alt="Home Image"
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-3"
-                    />
-                  </div>
-        </div>
-
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 border shadow p-5">
-          <h2 className="mb-4 text-center">Create an Account</h2>
-          {error && <div className="alert alert-danger">{error}</div>}
-
-          <form onSubmit={handleRegister}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Full Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <div className="position-relative" style={{ height: "85vh" }}>
+              <Image
+                src="/register.jpg"
+                alt="Register"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-3"
               />
             </div>
+          </div>
 
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+          <div className="col-12 col-md-6 border shadow p-5">
+            <h2 className="mb-4 text-center">Create an Account</h2>
+            {error && <div className="alert alert-danger">{error}</div>}
 
-            <div className="mb-4">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <form onSubmit={handleRegister}>
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <button type="submit" className="btn btn-primary w-100">
-              Sign Up
-            </button>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div className="mt-3 text-center">
-              <small>
-                Already have an account?{" "}
-                <Link href="/" className="text-decoration-none">
-                  Login
-                </Link>
-              </small>
-            </div>
-          </form>
+              <div className="mb-4">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <button type="submit" className="btn btn-primary w-100">
+                Sign Up
+              </button>
+
+              <div className="mt-3 text-center">
+                <small>
+                  Already have an account?{" "}
+                  <Link href="/" className="text-decoration-none">
+                    Login
+                  </Link>
+                </small>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </Layout>
   );
 }
