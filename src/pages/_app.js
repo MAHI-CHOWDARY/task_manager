@@ -7,6 +7,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     // Load Bootstrap JS only in the browser
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
+    import ('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
   return <Component {...pageProps} />;

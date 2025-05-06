@@ -8,9 +8,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading,setLoading]=useState(false)
   const router = useRouter();
 
   const handleLogin = async () => {
+    setLoading(true)
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -18,12 +20,14 @@ export default function LoginPage() {
     });
 
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     if (response.status === 200) {
       // Save the token in localStorage
       localStorage.setItem("token", data.user.email);
+      setLoading(false)
       router.push("/dashboard"); // Redirect to dashboard after login
     } else {
+      setLoading(false)
       setError(data.message);
     }
   };
@@ -65,12 +69,15 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
             {error && <p style={{ color: "red" }}>{error}</p>}
-            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+            {/* {error && <div className="text-red-500 text-sm mb-4">{error}</div>} */}
             <button
               onClick={handleLogin}
               className="btn btn-primary mt-2 text-center rounded-3"
+              disabled={loading}
             >
-              Login
+              {loading?<div class="spinner-border text-danger" role="status">
+  <span class="visually-hidden">Loading</span>
+</div>:"Login"}
             </button>
             <div className="mt-4 text-center">
           <p className="text-sm">
