@@ -12,6 +12,7 @@ export default function RegisterPage() {
     password: "",
   });
   const [error, setError] = useState("");
+  const [loading,setLoading]=useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,6 +20,7 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true)
     setError(""); // Clear old errors
     try {
       const res = await fetch("/api/auth/registerPage", {
@@ -31,8 +33,10 @@ export default function RegisterPage() {
 
       if (!res.ok) throw new Error(data.message || "Registration failed");
       router.push("/");
+      setLoading(false)
     } catch (err) {
       setError(err.message);
+      setLoading(false)
     }
   };
 
@@ -102,8 +106,8 @@ export default function RegisterPage() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary w-100">
-                Sign Up
+              <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                {loading?"Submitting":"Sign Up"}
               </button>
 
               <div className="mt-3 text-center">
