@@ -8,6 +8,7 @@ import Viewtask from './viewtask';
 
 import { useEffect } from 'react';
 
+import Settings from './settings';
 
 function Dashboard() {
   // localStorage.setItem("page","profile")
@@ -35,6 +36,8 @@ function Dashboard() {
         return <Createtask/>;
       case 'viewtasks':
         return <Viewtask/>;
+      case 'settings':
+        return <Settings/>
        
     }
   };
