@@ -1,0 +1,20 @@
+.table-wrapper {
+    position: relative;
+}
+  
+  /* Initially hide the buttons */
+  .search-buttons {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    gap: 2px;
+  }
+  
+  /* Show buttons when hovering over the wrapper */
+  .table-wrapper:hover .search-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  

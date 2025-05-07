@@ -13,6 +13,24 @@ export default function Viewtask() {
   // console.log(filter);
   const [filteredTasks, setFilteredTasks] = useState([]);
 
+  // priority search
+  const priorityOrder = { High: 3, Medium: 2, Low: 1 };
+  const sortByPriority = () => {
+    const sorted = [...filteredTasks].sort(
+      (a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
+    );
+    setFilteredTasks(sorted);
+  };
+
+  // filter based on due date
+  const sortByDueDate = () => {
+    const sorted = [...filteredTasks].sort(
+      (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+    );
+    setFilteredTasks(sorted);
+  };
+
+  // search function
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -103,9 +121,20 @@ export default function Viewtask() {
               onChange={handleSearch}
               style={{ width: "40%" }}
             />
-            <p style={{ cursor: "pointer", fontSize: "1.5rem" }}>🔽</p>
+            <div className="table-wrapper">
+              <div className="table-header">
+                <p style={{ cursor: "pointer", fontSize: "1.5rem" }}>🔽</p>
+              </div>
+              <div className="search-buttons" style={{ width: "100px" }}>
+                <button className="btn btn-secondary" onClick={sortByPriority}>
+                  Priority
+                </button>
+                <button className="btn btn-secondary" onClick={()=>sortByDueDate()}>Due Date</button>
+              </div>
+            </div>
           </div>
           <hr />
+
           <ul class="nav justify-content-center" style={{ cursor: "pointer" }}>
             <li class="nav-item">
               <a class="nav-link" onClick={() => setFilter("All")}>
@@ -142,13 +171,14 @@ export default function Viewtask() {
                     <div className="text-end">
                       <button
                         className="btn btn-danger"
+                        style={{ fontSize: "16px", padding: "4px" }}
                         onClick={() => handleDelete(ele._id)}
                       >
                         🗑️
                       </button>
                     </div>
 
-                    <h3 className="text-danger-emphasis fw-bold text-center">
+                    <h3 className="text-teritiary fw-bold text-center text-uppercase">
                       {ele.title}
                     </h3>
                     <div className="card-text">

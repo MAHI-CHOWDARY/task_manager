@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import withAuth from "./withAuth";
-// import { Button } from "bootstrap/dist/js/bootstrap.bundle.min";
-// import Users from "@/models/Users";
 
 
  function Profile() {
@@ -15,7 +13,7 @@ import withAuth from "./withAuth";
     image: "",
   });
 
-  const [imagePreview, setImagePreview] = useState(null);
+ 
 
   // Simulated email from login
 
@@ -25,7 +23,6 @@ import withAuth from "./withAuth";
     {
     axios.get(`/api/profileApi?email=${userEmail}`).then((res) => {
       setUser((prev) => ({ ...prev, ...res.data }));
-      setImagePreview(res.data.image || null);
     });
   }
   }, []);
@@ -34,16 +31,7 @@ import withAuth from "./withAuth";
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setUser((prev) => ({ ...prev, image: reader.result }));
-      setImagePreview(reader.result);
-    };
-    if (file) reader.readAsDataURL(file);
-  };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.put("/api/profileApi", user);
@@ -60,7 +48,7 @@ import withAuth from "./withAuth";
                 <tr>
                   <td colSpan="2" className="text-center">
                     <Image
-                      src={imagePreview || "/profile.jpg"}
+                      src={"/profile.jpg"}
                       alt="Preview"
                       className=" rounded-circle mb-3 text-dark border"
                       width={100}
