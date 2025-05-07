@@ -15,9 +15,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 3. Configure Environment Variables
 
-    --> Create a .env.local file in the root of the project and add your MongoDB URI:
-    --> MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/task_manager?retryWrites=true&w=majority
-   --> Replace <username> and <password> with your MongoDB Atlas credentials.
+    Create a .env.local file in the root of the project and add your MongoDB URI:
+    MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/task_manager?retryWrites=true&w=majority
+   Replace username and password with your MongoDB Atlas credentials.
     
 
 4. run the development server:
