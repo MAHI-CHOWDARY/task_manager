@@ -6,7 +6,7 @@ import Link from 'next/link';
   const router = useRouter();
   const handleLogout=()=>{
     localStorage.removeItem('token');
-    localStorage.removeItem("activepage")
+    localStorage.removeItem("activePage")
     router.push('/');
   }
     return (
